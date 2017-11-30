@@ -2,20 +2,30 @@
 
 Classes present:
 -----------------
-Black-grass
-Charlock
-Cleavers
-Common Chickweed
-Common wheat
-Fat Hen
-Loose Silky-bent
-Maize
-Scentless Mayweed
-Shepherds Purse
-Small-flowered Cranesbill
-Sugar beet
+- Black-grass
+- Charlock
+- Cleavers
+- Common Chickweed
+- Common wheat
+- Fat Hen
+- Loose Silky-bent
+- Maize
+- Scentless Mayweed
+- Shepherds Purse
+- Small-flowered Cranesbill
+- Sugar beet
 
-### This is an experimental setup to build code base for pytorch. Its main is to experiment faster using transfer learning.
+## Why TARS?
+My Favourite character from Interstellar. Its good to use names like murph, cooper, lander etc . 
+
+## TO_DO
+1) Selecting the best model (best_model.py)
+2) inference.py (Load model, read_image, preprocess, predict)
+3) Combining all predictions using different techinques (ensemble.py)
+    - Use simple avg
+    - Using validation_accuracy as weights and taking weighted average
+    - Training a classifier on top of it (NN, randomforest, XGB, LinearRegression)    
+### This is an experimental setup to build code base for pytorch. Its main is to experiment faster using transfer learning on all available pre-trained models.
 
 Folder structure:
 -----------------
