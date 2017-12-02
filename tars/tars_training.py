@@ -51,6 +51,8 @@ def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, schedul
 
                 # forward
                 outputs = model(inputs)
+                if type(outputs) == tuple:
+                    outputs, _ = outputs
                 _, preds = torch.max(outputs.data, 1)
                 loss = criterion(outputs, labels)
 

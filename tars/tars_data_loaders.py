@@ -17,16 +17,24 @@ import time
 import os
 
 
-def generate_data(data_dir, batch_size=32):
+def generate_data(data_dir, input_shape, batch_size=32):
+    """
+    input_shape(scale, shape)
+    """
+    if input_shape == 224:
+        scale = 256
+    else:
+        scale = 360
     data_transforms = {
     'train': transforms.Compose([
-        transforms.RandomSizedCrop(224),
+        transforms.Scale(scale),
+        transforms.RandomSizedCrop(input_shape),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]),
     'val': transforms.Compose([
-        transforms.Scale(256),
-        transforms.CenterCrop(224),
+        transforms.Scale(scale),
+        transforms.CenterCrop(input_shape),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]),}
     image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
