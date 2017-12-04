@@ -1,0 +1,41 @@
+python:
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet18_True_freeze.pth" -mo "resnet18" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet18_False_freeze.pth" -mo "resnet18" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet152_True_freeze.pth" -mo "resnet152" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet152_False_freeze.pth" -mo "resnet152" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet101_True_freeze.pth" -mo "resnet101" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet101_False_freeze.pth" -mo "resnet101" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet50_True_freeze.pth" -mo "resnet50" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet50_False_freeze.pth" -mo "resnet50" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet34_True_freeze.pth" -mo "resnet34" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/resnet34_False_freeze.pth" -mo "resnet34" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/squeezenet1_0_True_freeze.pth" -mo "squeezenet1_0" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/squeezenet1_0_False_freeze.pth" -mo "squeezenet1_0" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/squeezenet1_1_True_freeze.pth" -mo "squeezenet1_1" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/squeezenet1_1_False_freeze.pth" -mo "squeezenet1_1" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet121_True_freeze.pth" -mo "densenet121" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet121_False_freeze.pth" -mo "densenet121" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet169_True_freeze.pth" -mo "densenet169" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet169_False_freeze.pth" -mo "densenet169" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet201_True_freeze.pth" -mo "densenet201" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/densenet201_False_freeze.pth" -mo "densenet201" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/inception_v3_True_freeze.pth" -mo "inception_v3" -nc 12 -is 299
+	python tars_predict.py -idl "data/training_data" -ll "models/inception_v3_False_freeze.pth" -mo "inception_v3" -nc 12 -is 299
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg11_True_freeze.pth" -mo "vgg11" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg11_False_freeze.pth" -mo "vgg11" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg13_True_freeze.pth" -mo "vgg13" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg13_False_freeze.pth" -mo "vgg13" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg19_True_freeze.pth" -mo "vgg19" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg19_False_freeze.pth" -mo "vgg19" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg16_True_freeze.pth" -mo "vgg16" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg16_False_freeze.pth" -mo "vgg16" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg11_bn_True_freeze.pth" -mo "vgg11_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg11_bn_False_freeze.pth" -mo "vgg11_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg13_bn_True_freeze.pth" -mo "vgg13_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg13_bn_False_freeze.pth" -mo "vgg13_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg16_bn_True_freeze.pth" -mo "vgg16_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg16_bn_False_freeze.pth" -mo "vgg16_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg19_bn_True_freeze.pth" -mo "vgg19_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/vgg19_bn_False_freeze.pth" -mo "vgg19_bn" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/alexnet_True_freeze.pth" -mo "alexnet" -nc 12
+	python tars_predict.py -idl "data/training_data" -ll "models/alexnet_False_freeze.pth" -mo "alexnet" -nc 12

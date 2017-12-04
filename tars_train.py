@@ -7,7 +7,6 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.optim import lr_scheduler
 import numpy as np
-import pickle
 import time
 import os
 import argparse
@@ -36,6 +35,7 @@ print("[Load the model...]")
 # Parameters of newly constructed modules have requires_grad=True by default
 print("Loading model using class: {}, use_gpu: {}, freeze_layers: {}, name_of_model: {}".format(len(class_names), args.use_gpu, args.freeze_layers, args.model_name))
 model_conv = all_pretrained_models(len(class_names), use_gpu=args.use_gpu, freeze_layers=args.freeze_layers, name=args.model_name)
+model_conv = nn.DataParallel(model_conv, device_ids=[0, 1])
 
 print("[Using CrossEntropyLoss...]")
 criterion = nn.CrossEntropyLoss()
