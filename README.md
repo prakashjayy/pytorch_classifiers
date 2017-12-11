@@ -91,9 +91,11 @@ vgg19_bn      |    0.99297           |    0.96680            |
 alexnet       |    0.95970           |    0.92946            |
 
 
+**Added resnext101_32x4d, resnext101_64x4d, inceptionv4, inceptionresnetv2, nasnetalarge, bninception and vggm**
+
 Submissions:
-- densenet201 validation took me to 97.22
-- ensemble1 - mode of all best performing models - 97.32
+- densenet201 LB - to 97.22
+- ensemble1 - mode of all best performing models LB - 97.32
 
 ## TO_DO
 3) Combining all predictions using different techinques (ensemble.py)

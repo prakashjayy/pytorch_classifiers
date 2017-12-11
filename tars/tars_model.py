@@ -4,7 +4,14 @@ import torch
 import torchvision
 import torch.nn as nn
 import torch.nn.init as init
+
 import numpy as np
+
+from tars.nasnet import nasnetalarge
+from tars.resnext import resnext101_32x4d, resnext101_64x4d
+from tars.inceptionresnetv2 import inceptionresnetv2
+from tars.inceptionv4 import inceptionv4
+from tars.bninception import bninception
 
 """
 resnet18, resnet34, resnet50, resnet101, resnet152
@@ -35,18 +42,34 @@ if ct < 7:
     for param in child.parameters():
         param.requires_grad = False
 ```
-- If you want to train the whole network
+
+ct = []
+for name, child in model_conv.named_children():
+    if "layer1" in ct:
+        execute this
+    ct.append(name)
+
+
 """
 
-def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, name="resnet18"):
+def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, freeze_initial_layers=False, name="resnet18"):
     if name == "alexnet":
         print("[Building alexnet]")
         model_conv = torchvision.models.alexnet(pretrained='imagenet')
     elif name == "inception_v3":
         print("[Building inception_v3]")
         model_conv = torchvision.models.inception_v3(pretrained='imagenet')
+    elif name == "inceptionresnetv2":
+        print("[Building InceptionResnetV2]")
+        model_conv = inceptionresnetv2(num_classes=1000, pretrained='imagenet')
+    elif name == "inceptionv4":
+        print("[Building Inceptionv4]")
+        model_conv = inceptionv4(num_classes=1000, pretrained='imagenet')
+    elif name == "bninception":
+        print("[Building bninception]")
+        model_conv = bninception(num_classes=1000, pretrained='imagenet')
     elif name == "resnet18":
-        print("[Building resnet18")
+        print("[Building resnet18]")
         model_conv = torchvision.models.resnet18(pretrained='imagenet')
     elif name == "resnet34":
         print("[Building resnet34]")
@@ -99,6 +122,15 @@ def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, name="resn
     elif name == "vgg19_bn":
         print("[Building vgg19_bn]")
         model_conv = torchvision.models.vgg19_bn(pretrained='imagenet')
+    elif name == "nasnetalarge":
+        print("[Building nasnetalarge]")
+        model_conv = nasnetalarge(num_classes=1000, pretrained="imagenet")
+    elif name == "resnext101_64x4d":
+        print("[Building resnext101_64x4d]")
+        model_conv = resnext101_64x4d(pretrained="imagenet")
+    elif name == "resnext101_32x4d":
+        print("[Building resnext101_32x4d]")
+        model_conv = resnext101_32x4d(pretrained="imagenet")
     else:
         raise ValueError
 
@@ -112,6 +144,14 @@ def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, name="resn
         print("[Building Densenet]")
         num_ftrs = model_conv.classifier.in_features
         model_conv.classifier = nn.Linear(num_ftrs, n_class)
+        if freeze_initial_layers:
+            print("[Densenet: Freeezing layers only till denseblock1 including]")
+            ct = []
+            for name, child in model_conv.features.named_children():
+                if "denseblock1" in ct: #freeze all layers from layer1 inclusive
+                    for params in child.parameters():
+                        params.requires_grad = True
+                ct.append(name)
     elif "squeezenet" in name:
         print("[Building Squeezenet]")
         in_ftrs = model_conv.classifier[1].in_channels
@@ -121,6 +161,14 @@ def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, name="resn
         features[3] = nn.AvgPool2d(12, stride=1)
         model_conv.classifier = nn.Sequential(*features)
         model_conv.num_classes = n_class
+        if freeze_layers:
+            ct = []
+            print("[Squeezenet: Freeezing layers only till denseblock1 including]")
+            for name, child in model_conv.features.named_children():
+                if "3" in ct:
+                    for params in child.parameters():
+                        params.requires_grad = True
+                ct.append(name)
 
     elif "vgg" in name or "alexnet" in name:
         print("[Building VGG or Alexnet classifier]")
@@ -128,10 +176,101 @@ def all_pretrained_models(n_class, use_gpu=True, freeze_layers=False, name="resn
         features = list(model_conv.classifier.children())[:-1]
         features.extend([nn.Linear(num_ftrs, n_class)])
         model_conv.classifier = nn.Sequential(*features)
+        if freeze_layers:
+            ct = []
+            print("[Alex or VGG: Freeezing layers only till denseblock1 including]")
+            for name, child in model_conv.features.named_children():
+                if "5" in ct:
+                    for params in child.parameters():
+                        params.requires_grad = True
+                ct.append(name)
+
+    elif "nasnetalarge" in name:
+        print("[Building nasnetalarge]")
+        num_ftrs = model_conv.last_linear.in_features
+        model_conv.last_linear = nn.Linear(num_ftrs, n_class)
+        if freeze_layers:
+            ct=[]
+            print("[nasnetalarge: Freezing layers till cell_5]")
+            for name, child in model_conv.named_children():
+                if "cell_5" in ct:
+                    for params in child.parameters():
+                        params.requires_grad=True
+                ct.append(name)
+
+    elif "resnext" in name:
+        print("[Building resnext]")
+        num_ftrs = model_conv.last_linear.in_features
+        model_conv.last_linear = nn.Linear(num_ftrs, n_class)
+        if freeze_layers:
+            ct = []
+            for name, child in model_conv.features.named_children():
+                if "4" in ct:
+                    for param in child.parameters():
+                        param.requires_grad = True
+                ct.append(name)
+
+    elif "inceptionresnetv2" in name:
+        print("[Building inceptionresnetv2]")
+        num_ftrs = model_conv.last_linear.in_features
+        model_conv.last_linear = nn.Linear(num_ftrs, n_class)
+        if freeze_layers:
+            ct = []
+            print("[inceptionresnetv2: Freezing layers till maxpool_3a]")
+            for name, child in model_conv.named_children():
+                if "maxpool_3a" in ct:
+                    for params in child.parameters():
+                        params.requires_grad=True
+                ct.append(name)
+
+    elif "inceptionv4" in name:
+        print("[Building inceptionv4]")
+        num_ftrs = model_conv.last_linear.in_features
+        model_conv.last_linear = nn.Linear(num_ftrs, n_class)
+        if freeze_layers:
+            ct = []
+            for name, child in model_conv.features.named_children():
+                if "4" in ct:
+                    for param in child.parameters():
+                        param.requires_grad = True
+                ct.append(name)
+
+    elif "bninception" in name:
+        print("[Building bninception]")
+        num_ftrs = model_conv.last_linear.in_features
+        model_conv.last_linear = nn.Linear(num_ftrs, n_class)
+        if freeze_layers:
+            ct = []
+            print("[bninception: Freezing layers till pool2_3x3_s2]")
+            for name, child in model_conv.named_children():
+                if "pool2_3x3_s2" in ct:
+                    for params in child.parameters():
+                        params.requires_grad=True
+                ct.append(name)
     else:
         print("[Building inception_v3 or Resnet]")
         num_ftrs = model_conv.fc.in_features
         model_conv.fc = nn.Linear(num_ftrs, n_class)
+
+        if freeze_initial_layers:
+            if "resnet" in name:
+                print("[Resnet: Freezing layers only till layer1 including]")
+                ct = []
+                for name, child in model_conv.named_children():
+                    if "layer1" in ct:
+                        for params in child.parameters():
+                            params.requires_grad = True
+                    ct.append(name)
+            else:
+                print("[Inception: Freezing layers only till layer1 including]")
+                ct = []
+                for name, child in model_conv.named_children():
+                    if "Conv2d_4a_3x3" in ct:
+                        for params in child.parameters():
+                            params.requires_grad = True
+                    ct.append(name)
+
+
 
     if use_gpu:
         model_conv = model_conv.cuda()
