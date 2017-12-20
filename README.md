@@ -1,11 +1,5 @@
 ## This is an experimental setup to build code base for pytorch. Its main is to experiment faster using transfer learning on all available pre-trained models.
 
-
-### Why TARS?
-My Favourite character from Interstellar. Its good to use names like murph, cooper, lander etc .
-
-
-
 ### Dataset: Plant Seedlings classification
 
 Classes present:
@@ -40,8 +34,76 @@ total number of train images: 4268
 total number of val images: 482
 total number of test images: 794
 
-## Freezed all the layers freeze=True
 
+# Results with Full-Agumentation strategy:
+
+## Trained the networks in three methods:
+   - Full Finetuning
+   - Freeze first few layers
+
+## Case-1 - Finetuning entire network
+Models           | Train Accuracy_score |    Val Accuracy_score |
+-------------    | :------------------: | --------------------: |
+resnet18         |    0.92783           |    0.93153            |
+resnet34         |    0.9522            |    0.94190            |
+resnet50         |    0.95665           |    0.94398            |
+resnet101        |    0.96696           |    0.96265            |
+resnet152        |    0.96555           |    0.95643            |
+squeezenet1_0    |    0.94329           |    0.92738            |
+squeezenet1_1    |    0.93955           |    0.93153            |
+densenet121      |    0.95243           |    0.9336             |
+densenet169      |    0.96626           |    0.93983            |
+densenet201      |    0.96063           |    0.95020            |
+inception_v3     |    0.94212           |    0.93568            |
+vgg11            |    0.93814           |    0.93153            |
+vgg13            |    0.94493           |    0.94190            |
+vgg16            |    0.95665           |    0.93568            |
+vgg19            |    0.95009           |    0.93775            |
+vgg11_bn         |    0.94142           |    0.93775            |
+vgg13_bn         |    0.94423           |    0.92738            |
+vgg16_bn         |    0.94634           |    0.94190            |
+vgg19_bn         |    0.94915           |    0.93360            |
+alexnet          |    0.91260           |    0.90456            |
+resnext101_64x4d |    0.98055           |    0.96887            |
+resnext101_32x4d |    0.98172           |    0.96887            |
+nasnetalarge     |    0.96907           |    0.96265            |
+inceptionresnetv2|    0.96134           |    0.95435            |
+inceptionv4      |    0.96930           |    0.96473            |
+
+
+## Case-2 - Freezed first few layers(look at code)
+Models           | Train Accuracy_score |    Val Accuracy_score |
+-------------    | :------------------: | ----------------------:
+resnet18         |    0.9196            |    0.91493            |
+resnet34         |    0.94845           |    0.93983            |
+resnet50         |    0.9564            |    0.93983            |
+resnet101        |    0.96790           |    0.96265            |
+resnet152        |    0.96508           |    0.95643            |
+squeezenet1_0    |    0.94048           |    0.92738            |
+squeezenet1_1    |    0.93088           |    0.92116            |
+densenet121      |    0.95173           |    0.95228            |
+densenet169      |    0.96087           |    0.94813            |
+densenet201      |    0.95384           |    0.95020            |
+inception_v3     |    0.94025           |    0.93775            |
+vgg11            |    0.93697           |    0.92946            |
+vgg13            |    0.93533           |    0.92323            |
+vgg16            |    0.94821           |    0.93983            |
+vgg19            |    0.95243           |    0.94190            |
+vgg11_bn         |    0.93416           |    0.92738            |
+vgg13_bn         |    0.93322           |    0.92323            |
+vgg16_bn         |    0.94728           |    0.93775            |
+vgg19_bn         |    0.94798           |    0.94190            |
+alexnet          |    0.89784           |    0.88589            |
+resnext101_64x4d |    0.98617           |    0.96887            |
+resnext101_32x4d |    0.98195           |    0.96473            |
+nasnetalarge     |    0.95970           |    0.96265            |
+inceptionresnetv2|    0.95103           |    0.94813            |
+inceptionv4      |    0.96251           |    0.93775            |
+
+
+# Results with Basic Agumentation
+
+## Case-1 (Freezed all layers except last one)
 Models        | Train Accuracy_score |    Val Accuracy_score |
 ------------- | :------------------: | --------------------: |
 resnet18      |    0.77553           |    0.75518            |
@@ -66,7 +128,7 @@ vgg19_bn      |    0.75773           |    0.73858            |
 alexnet       |    0.83153           |    0.76348            |
 
 
-## Finetuning the entire network freeze=False
+## Case-2 Finetuning the entire network
 Models        | Train Accuracy_score |    Val Accuracy_score |
 ------------- | :------------------: | ----------------------:
 resnet18      |    0.98477           |    0.96058            |
@@ -91,38 +153,16 @@ vgg19_bn      |    0.99297           |    0.96680            |
 alexnet       |    0.95970           |    0.92946            |
 
 
-**Added resnext101_32x4d, resnext101_64x4d, inceptionv4, inceptionresnetv2, nasnetalarge, bninception and vggm**
-
-Submissions:
+## Submissions:
 - densenet201 LB - to 97.22
 - ensemble1 - mode of all best performing models LB - 97.32
 
 ## TO_DO
-3) Combining all predictions using different techinques (ensemble.py)
-    - Use simple avg
-    - Using validation_accuracy as weights and taking weighted average
-    - Training a classifier on top of it (NN, randomforest, XGB, LinearRegression)    
-
-Folder structure:
------------------
-- data
-    - train dataset
-    - test dataset
-    - training_data
-        - train
-        - valid
-    - submission_file
-
-- models
-    - All models built
-    - Readme.md (Contains the description of each model)
-- tars
-    - __init__.py
-    - tars_models.py
-    - tars_data_loaders.py
-    - tars_training.py
-    - utils.py (Any utility functions keep here)
-- submissions
-    - once training is completed all the files will be saved here. Model desciption will help
-- tars_train.py (which contains the training code)
-- tars_predict.py (which contains the training code and extend still)
+1) Adding mixup strategy to all the networks
+2) Ensembling model outputs
+3) Model stacking
+4) Extracting bottleneck features and using
+        - ML to train the model
+        - Visualization using T-sne
+5) Solve issue with bninception(Model is not training)
+6) Train Vggm network 

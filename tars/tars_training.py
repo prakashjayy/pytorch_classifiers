@@ -92,41 +92,77 @@ def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, schedul
     return model
 
 
-def predicted_class(mode, model_conv, input_data_loc, input_shape, use_gpu):
-    print("[Evaluating the {} data]".format(mode))
-    original, predicted, probs = [], [], []
-    if mode in ["train", "val"]:
-        data_loc = os.path.join(input_data_loc, mode)
-    else:
-        data_loc = "data/Test"
-    dataloaders, image_datasets = data_loader_predict(data_loc, input_shape)
-    if mode in ["train", "val"]:
-        class_to_idx = image_datasets.class_to_idx
-    imgs =[i[0] for i in image_datasets.imgs]
+
+def model_evaluation(mode, model_conv, input_data_loc, input_shape, use_gpu, name):
+    """A function which evaluates the model and outputs the csv of predictions of validation and train.
+
+    mode:
+    model_conv:
+    input_data_loc:
+    input_shape:
+    use_gpu:
+
+    Output:
+    1) Prints score of train and validation (Write it to a log file)
+    """
+    print("[Evaluating the data in {}]".format(mode))
+    data_loc = os.path.join(input_data_loc, mode)
+
+    print("[Building dataloaders]")
+    dataloaders, image_datasets = data_loader_predict(data_loc, input_shape, name)
+    class_to_idx = image_datasets.class_to_idx
+    imgs = [i[0] for i in image_datasets.imgs]
     print("total number of {} images: {}".format(mode, len(imgs)))
+    original, predicted, probs = [], [], []
     for img, label in dataloaders:
         if use_gpu:
             inputs = Variable(img.cuda())
         else:
             inputs = Variable(img)
-        outputs = model_conv(inputs)
-        if type(outputs) == tuple:
-            outputs, _ = outputs
+        bs, ncrops, c, h, w = inputs.data.size()
+        output = model_conv(inputs.view(-1, c, h, w)) # fuse batch size and ncrops
+        if type(output) == tuple:
+            output, _ = output
         else:
-            outputs=outputs
-        outputs = nn.Softmax()(outputs)
-        prob, preds = torch.max(outputs.data, 1)
-        probs.extend(prob.cpu().numpy())
+            output = output
+        outputs = torch.stack([nn.Softmax(dim=0)(i) for i in output])
+        outputs = outputs.mean(0)
+        _, preds = torch.max(outputs, 0)
+        probs.append(outputs.data.cpu().numpy())
         original.extend(label.numpy())
-        predicted.extend(preds.cpu().numpy())
-    if mode in ["train", "val"]:
-        print("Accuracy_score {} : {} ".format(mode,  accuracy_score(original, predicted)))
-        return class_to_idx
-    else:
-        print(len(predicted))
-        frame = pd.DataFrame(predicted)
-        frame.columns = ["class"]
-        frame["Prob"] = probs
-        frame["img_loc"] = imgs
-        frame = frame[["img_loc", "Prob", "class"]]
-        return frame
+        predicted.extend(preds.data.cpu().numpy())
+    print("Accuracy_score {} : {} ".format(mode,  accuracy_score(original, predicted)))
+    frame = pd.DataFrame(probs)
+    frame.columns = ["class_{}".format(i) for i in frame.columns]
+    frame["img_loc"] = imgs
+    frame["original"] = original
+    frame["predicted"] = predicted
+    return frame, class_to_idx
+
+
+def model_evaluation_test(mode, model_conv, test_input_data_loc, input_shape, use_gpu, name):
+    dataloaders, image_datasets = data_loader_predict(test_input_data_loc, input_shape, name)
+    imgs =[i[0] for i in image_datasets.imgs]
+    print("total number of {} images: {}".format(mode, len(imgs)))
+    predicted, probs = [], []
+    for img, label in dataloaders:
+        if use_gpu:
+            inputs = Variable(img.cuda())
+        else:
+            inputs = Variable(img)
+        bs, ncrops, c, h, w = inputs.data.size()
+        output = model_conv(inputs.view(-1, c, h, w)) # fuse batch size and ncrops
+        if type(output) == tuple:
+            output, _ = output
+        else:
+            output = output
+        outputs = torch.stack([nn.Softmax(dim=0)(i) for i in output])
+        outputs = outputs.mean(0)
+        _, preds = torch.max(outputs, 0)
+        probs.append(outputs.data.cpu().numpy())
+        predicted.extend(preds.data.cpu().numpy())
+    frame = pd.DataFrame(probs)
+    frame.columns = ["class_{}".format(i) for i in frame.columns]
+    frame["img_loc"] = imgs
+    frame["predicted"] = predicted
+    return frame

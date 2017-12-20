@@ -41,7 +41,7 @@ print("Loading model using class: {}, use_gpu: {}, freeze_layers: {}, freeze_ini
 model_conv = all_pretrained_models(len(class_names), use_gpu=args.use_gpu, freeze_layers=args.freeze_layers, freeze_initial_layers= args.freeze_initial_layers, name=args.model_name)
 if args.use_parallel:
     print("[Using all the available GPUs]")
-    model_conv = nn.DataParallel(model_conv)
+    model_conv = nn.DataParallel(model_conv, device_ids=[0, 1])
 
 print("[Using CrossEntropyLoss...]")
 criterion = nn.CrossEntropyLoss()
