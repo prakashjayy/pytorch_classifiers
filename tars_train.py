@@ -27,7 +27,8 @@ parser.add_argument('-is', '--input_shape', default=224, type=int)
 parser.add_argument('-sl', '--save_loc', default="models/" )
 parser.add_argument("-g", '--use_gpu', default=True, action='store_false', help='Bool type gpu')
 parser.add_argument("-p", '--use_parallel', default=True, action='store_false', help='Bool type to use_parallel')
-
+parser.add_argument("-mx", '--mixup', default=True, action='store_true' ,help='Use mixup data augementation')
+parser.add_argument("-mxal", '--mixup_alpha', default=0.1, type = float, help='Alpha to be used in mixup agumentation')
 
 args = parser.parse_args()
 
@@ -53,8 +54,9 @@ print("[Creating Learning rate scheduler...]")
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_conv, step_size=7, gamma=0.1)
 
 print("[Training the model begun ....]")
+print(args.mixup, args.mixup_alpha)
 model_ft = train_model(model_conv, dataloaders, dataset_sizes, criterion, optimizer_conv, exp_lr_scheduler, args.use_gpu,
-                       num_epochs=args.epochs)
+                       num_epochs=args.epochs, mixup = args.mixup, alpha = args.mixup_alpha)
 
 print("[Save the best model]")
 model_save_loc = args.save_loc+args.model_name+"_"+str(args.freeze_layers)+"_freeze"+"_"+str(args.freeze_initial_layers)+"_freeze_initial_layer"+".pth"

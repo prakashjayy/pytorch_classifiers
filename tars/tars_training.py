@@ -19,7 +19,8 @@ import pandas as pd
 from tars.utils import *
 from tars.tars_data_loaders import *
 
-def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, scheduler, use_gpu, num_epochs=25):
+def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, scheduler, use_gpu, num_epochs=25, mixup = False, alpha = 0.1):
+    print("MIXUP".format(mixup))
     since = time.time()
 
     best_model_wts = model.state_dict()
@@ -45,6 +46,9 @@ def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, schedul
                 # get the inputs
                 inputs, labels = data
 
+                #augementation using mixup
+                if phase == 'train' and mixup:
+                    inputs = mixup_batch(inputs, alpha)
                 # wrap them in Variable
                 if use_gpu:
                     inputs = Variable(inputs.cuda())
@@ -92,97 +96,6 @@ def train_model(model, dataloaders, dataset_sizes, criterion, optimizer, schedul
     # load best model weights
     model.load_state_dict(best_model_wts)
     return model
-
-
-def train_model_mixup(model, dataloaders, dataset_sizes, class_names, criterion, optimizer, scheduler, use_gpu=True, num_epochs = 25,  mixup_lambda = 0.2, alpha = 0.5):
-    print("Using GPU: {}".format(use_gpu))
-    since = time.time()
-    best_model_wts = model.state_dict()
-    best_at_epoch = 0
-    best_acc = 0.0
-
-    for epoch in range(num_epochs):
-        epoch_start = time.time()
-        print("Epoch {}/{}".format(epoch, num_epochs-1))
-        print('-'*10)
-
-        for phase in ['train', 'val']:
-            if phase == 'train':
-                scheduler.step()
-                model.train(True)
-            else:
-                model.train(False)
-            running_loss = 0.0
-            running_corrects = 0
-            mixup = True
-            for  idx, data  in tqdm(enumerate(dataloaders[phase])):
-                if phase == 'train' and mixup:
-                    (input1, target1) = data
-                    input2, target2 = (input1.clone(), target1.clone())
-
-                    perm = np.random.permutation(input1.size()[0])
-
-                    for i in range(input2.size()[0]):
-                        input2[i] = input1[perm[i]]
-                        target2[i] = target1[perm[i]]
-
-                    target1 = onehot(target1, len(class_names))
-                    target2 = onehot(target2, len(class_names))
-                    _lambda = torch.Tensor(np.random.beta(alpha, alpha, size=input1.size()[0]))
-                    _input_lambda = _lambda.view(-1, 1, 1, 1)
-                    _target_lambda = _lambda.view(-1, 1)
-
-                    inputs = _input_lambda * input1 + (1 - _input_lambda) * input2
-                    labels = _target_lambda * target1 + (1 - _target_lambda) * target2
-
-                else :
-                    inputs, labels = data
-                if use_gpu:
-                    inputs = Variable(inputs.cuda())
-                    labels = Variable(labels.cuda())
-                else:
-                    inputs = Variable(inputs)
-                    labels = Variable(labels)
-                optimizer.zero_grad()
-
-                outputs = model(inputs)
-                if type(outputs) == tuple:
-                    outputs, _ = outputs
-                if mixup and phase == 'train':
-                    loss = naive_cross_entropy_loss(outputs, labels)
-                else:
-                    loss = criterion(outputs, labels)
-                _, preds = torch.max(outputs.data, 1)
-
-                if phase == 'train':
-                    loss.backward()
-                    optimizer.step()
-
-                running_loss += loss.data[0]
-
-                if not mixup or phase == 'val':
-                    running_corrects += torch.sum(preds == labels.data)
-                else:
-                    running_corrects = 0
-            epoch_loss = running_loss/dataset_sizes[phase]
-            epoch_acc = running_corrects / dataset_sizes[phase]
-
-            print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
-            if phase == 'val' and epoch_acc > best_acc:
-                best_acc = epoch_acc
-                best_model_wts = model.state_dict()
-                best_at_epoch = epoch
-        print('Epoch Time: {}'.format(time.time() - epoch_start))
-        print()
-    time_elapsed = time.time() - since
-    print('Training complete in {:.0f}m {:.0f}s'.format(
-        time_elapsed // 60, time_elapsed % 60))
-    print('Best val Acc: {:4f} at epoch: {}'.format(best_acc, best_at_epoch))
-    # load best model weights
-    model.load_state_dict(best_model_wts)
-    return model
-
-
 
 def model_evaluation(mode, model_conv, input_data_loc, input_shape, use_gpu, name):
     """A function which evaluates the model and outputs the csv of predictions of validation and train.

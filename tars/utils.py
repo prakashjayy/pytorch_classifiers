@@ -4,6 +4,7 @@ from torch.nn import functional as Func
 import torchvision.transforms as transforms
 from torch.autograd import Variable
 from PIL import Image
+import numpy as np
 
 class ToSpaceBGR(object):
 
@@ -29,6 +30,26 @@ class ToRange255(object):
             tensor.mul_(255)
         return tensor
 
+def mixup_batch(inp_batch, alpha):
+    """
+    Applies mixup augementation to a batch
+    :param input_batch: tensor with batchsize as first dim
+    :param alpha: lamda drawn from beta(alpha+1, alpha)
+    """
+    inp_clone = inp_batch.clone()
+    #getting batch size
+    batchsize = inp_batch.size()[0]
+
+    #permute a clone
+    perm = np.random.permutation(batchsize)
+    for i in range(batchsize):
+        inp_clone[i] = inp_batch[perm[i]]
+    #generating different lambda for each sample
+    #Refernced from http://www.inference.vc/mixup-data-dependent-data-augmentation/
+    lam = torch.Tensor(np.random.beta(alpha+1, alpha, batchsize))
+    lam = lam.view(-1,1,1,1)
+    inp_mixup = lam * inp_batch + (1- lam) * inp_clone
+    return inp_mixup
 
 def onehot(t, num_classes):
     """
@@ -42,6 +63,7 @@ def onehot(t, num_classes):
 
 def naive_cross_entropy_loss(output, target, size_average=True):
     """
+    was used in mixup
     in PyTorch's cross entropy, targets are expected to be labels
     so to predict probabilities this loss is needed
     suppose q is the target and p is the input

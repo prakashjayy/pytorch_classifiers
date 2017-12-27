@@ -1,55 +1,75 @@
-python:
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet18" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet18" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet34" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet34" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet50" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet50" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet101" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet101" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet152" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnet152" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet121" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet121" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet169" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet169" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet201" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "densenet201" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "squeezenet1_0" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "squeezenet1_0" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "squeezenet1_1" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "squeezenet1_1" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inception_v3" -ep 100 -is 299
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inception_v3" -f -ep 100 -is 299
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg11" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg11" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg13" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg13" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg16" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg16" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg19" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg19" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg11_bn" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg11_bn" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg13_bn" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg13_bn" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg16_bn" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg16_bn" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg19_bn" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "vgg19_bn" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "alexnet" -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "alexnet" -f -ep 100
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inceptionresnetv2" -ep 100 -is 299 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inceptionresnetv2" -f -ep 100 -is 299 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inceptionv4" -ep 100 -is 299 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inceptionv4" -f -ep 100 -is 299 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "bninception" -ep 100 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "bninception" -f -ep 100 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inception_v3" -ep 100 -is 299
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "inception_v3" -f -ep 100 -is 299
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnext101_64x4d" -ep 100 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnext101_64x4d" -f -ep 100 -b 16
-	#python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnext101_32x4d" -ep 100 -b 16
-	python tars_train.py -idl "data/training_data" -sl "models/" -mo "nasnetalarge" -ep 100 -is 331 -b 8
-	python tars_train.py -idl "data/training_data" -sl "models/" -mo "nasnetalarge" -f -ep 100 -is 331 -b 8
-	python tars_train.py -idl "data/training_data" -sl "models/" -mo "resnext101_32x4d" -f -ep 100 -b 16
+DATA_LOC=-idl "/data1/public_datasets/plant_seedlings/training_data"
+MIXUP=-mx 
+MIXUP_ALPHA=-mxal 0.1
+SAVE_LOC="models/"
+NUM_EPOCHS=-ep 100
+
+all: resnets densenets squeezenets inceptions_v3 vggs_base vggs_bn alexnets inceptionresnets resnext inceptions_bn nasnets
+	echo "Training all nets are done"
+
+resnets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet18" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet18" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet34" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet34" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet50" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet50" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet101" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet101" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet152" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnet152" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+densenets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet121" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet121" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet169" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet169" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet201" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "densenet201" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+squeezenets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "squeezenet1_0" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "squeezenet1_0" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "squeezenet1_1" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "squeezenet1_1" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+inceptions_v3:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inception_v3" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inception_v3" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299
+vggs_base:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg11" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg11" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg13" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg13" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg16" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg16" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg19" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg19" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+vggs_bn:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg11_bn" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg11_bn" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg13_bn" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg13_bn" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg16_bn" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg16_bn" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg19_bn" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "vgg19_bn" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+alexnets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "alexnet" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "alexnet" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA)
+inceptionresnets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inceptionresnetv2" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299 -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inceptionresnetv2" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299 -b 16
+inceptions_v4:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inceptionv4" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299 -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inceptionv4" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299 -b 16
+inceptions_bn:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "bninception" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "bninception" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inception_v3" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "inception_v3" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 299
+resnext:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnext101_64x4d" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnext101_64x4d" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnext101_32x4d" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "resnext101_32x4d" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -b 16
+nasnets:
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "nasnetalarge" $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 331 -b 8
+	python tars_train.py $(DATA_LOC) -sl $(SAVE_LOC) -mo "nasnetalarge" -f $(NUM_EPOCHS) $(MIXUP) $(MIXUP_ALPHA) -is 331 -b 8
