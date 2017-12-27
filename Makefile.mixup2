@@ -1,0 +1,28 @@
+python:
+	#python tars_mixup_train.py -idl "data/training_data" -mo "resnet18" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "resnet34" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "resnet50" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "resnet101" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "resnet152" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "densenet121" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "densenet169" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "densenet201" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "squeezenet1_0" -ep 200 -pt
+	#python tars_mixup_train.py -idl "data/training_data" -mo "squeezenet1_1" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "inception_v3" -ep 200 -pt -is 299
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg11" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg13" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg16" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg19" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg11_bn" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg13_bn" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg16_bn" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "vgg19_bn" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "alexnet" -ep 200 -pt
+	python tars_mixup_train.py -idl "data/training_data" -mo "inceptionresnetv2" -ep 200 -pt -is 299 -b 16
+	python tars_mixup_train.py -idl "data/training_data" -mo "inceptionv4" -ep 200 -pt -is 299 -b 16
+	python tars_mixup_train.py -idl "data/training_data" -mo "bninception" -ep 200 -pt -b 16
+	python tars_mixup_train.py -idl "data/training_data" -mo "inception_v3" -ep 200 -pt -is 299
+	python tars_mixup_train.py -idl "data/training_data" -mo "resnext101_64x4d" -ep 200 -pt -b 16
+	python tars_mixup_train.py -idl "data/training_data" -mo "resnext101_32x4d" -ep 200 -pt -b 16
+	python tars_mixup_train.py -idl "data/training_data" -mo "nasnetalarge" -ep 200 -pt -is 331 -b 8
