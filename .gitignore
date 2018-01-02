@@ -101,3 +101,5 @@ ENV/
 .mypy_cache/
 #log files
 logs/
+#models
+models/
